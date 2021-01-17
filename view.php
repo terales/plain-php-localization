@@ -1,5 +1,5 @@
 <?php
-    global $localesSupported, $locale, $t, $currencyLocale, $dateLocale;
+    global $localesSupported, $locale, $currencyLocale, $dateLocale;
     global $books_bought;
     global $discount_cents;
     global $discount_from;
