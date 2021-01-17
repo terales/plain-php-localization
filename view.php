@@ -27,5 +27,8 @@
         $dateLocale->format($discount_from)
     ) ?>
 </p>
+<p>
+    <?= $t['key_has_only_source'] ?>
+</p>
 </body>
 </html>

@@ -2,10 +2,14 @@
 
 // Detect and load selected locale
 $localesSupported = ['en_US', 'ar_EG', 'zh_CN', 'es_MX'];
+$localeDefault = 'en_US';
 $locale = empty($_GET['locale']) || !in_array($_GET['locale'], $localesSupported) ? $localeDefault : $_GET['locale'];
 $currencyLocale = new \NumberFormatter($locale,  \NumberFormatter::CURRENCY);
 $dateLocale = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
-$t = include('locales/' . $locale . '.php');
+
+// Support untranslated keys.
+// If there would be any keys missing in default locale (en_US), then developer would see an Undefined index notice.
+$t = array_merge(include('locales/' . $localeDefault . '.php'), include('locales/' . $locale . '.php'));
 
 // Load amount of books bought
 $books_bought = empty($_GET['books']) ? 0 : (int) $_GET['books'];
