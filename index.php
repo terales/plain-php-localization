@@ -2,7 +2,7 @@
 
 // Detect and load selected locale
 $localesSupported = ['en_US', 'ar_EG', 'zh_CN', 'es_MX'];
-$locale = empty($_GET['locale']) ? 'en_US' : $_GET['locale'];
+$locale = empty($_GET['locale']) || !in_array($_GET['locale'], $localesSupported) ? $localeDefault : $_GET['locale'];
 $currencyLocale = new \NumberFormatter($locale,  \NumberFormatter::CURRENCY);
 $dateLocale = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
 $t = include('locales/' . $locale . '.php');
