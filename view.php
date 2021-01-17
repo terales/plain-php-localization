@@ -18,17 +18,16 @@
     </select>
     <button type="submit">Submit</button>
 </form>
-<h1><?= $t['welcome'] ?></h1>
-<p><?= sprintf($t['confirm_books_bought'], $books_bought) ?></p>
+<h1><?= t('welcome') ?></h1>
+<p><?= t('confirm_books_bought', ['books_bought' => $books_bought]) ?></p>
 <p>
-    <?= sprintf(
-        $t['discount_available'],
-        $currencyLocale->format($discount_cents / 100),
-        $dateLocale->format($discount_from)
-    ) ?>
+    <?= t('discount_available', [
+            'discount_amount' => $currencyLocale->format($discount_cents / 100),
+            'discount_from' => $dateLocale->format($discount_from),
+    ]) ?>
 </p>
 <p>
-    <?= $t['key_has_only_source'] ?>
+    <?= t('key_has_only_source') ?>
 </p>
 </body>
 </html>

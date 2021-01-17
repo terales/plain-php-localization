@@ -9,7 +9,8 @@ $dateLocale = new \IntlDateFormatter($locale, \IntlDateFormatter::LONG, \IntlDat
 
 // Support untranslated keys.
 // If there would be any keys missing in default locale (en_US), then developer would see an Undefined index notice.
-$t = array_merge(include('locales/' . $localeDefault . '.php'), include('locales/' . $locale . '.php'));
+$messagesTranslated = include('locales/' . $locale . '.php');
+$messagesDefault = include('locales/' . $localeDefault . '.php');
 
 // Load amount of books bought
 $books_bought = empty($_GET['books']) ? 0 : (int) $_GET['books'];
@@ -18,3 +19,23 @@ $discount_from = new \DateTime('2021-01-16');
 
 // Render HTML layout
 require('view.php');
+
+// Helper function for ease of use
+function t($key, array $params = []) {
+    global $locale;
+    global $localeDefault;
+    global $messagesTranslated;
+    global $messagesDefault;
+
+    if (empty($messagesTranslated[$key])) {
+        $localeUsed = $localeDefault;
+        $message = $messagesDefault[$key];
+    } else {
+        $localeUsed = $locale;
+        $message = $messagesTranslated[$key];
+    }
+
+    return empty($params)
+        ? $message
+        : MessageFormatter::formatMessage($localeUsed, $message, $params);
+}
